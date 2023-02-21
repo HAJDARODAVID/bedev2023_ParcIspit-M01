@@ -21,7 +21,6 @@ Parcijalni ispit - Modul01 (Radno okruženje)
             - sudo mysql_secure_installation
         - PHP
             - sudo apt install php libapache2-mod-php php-mysql
-
         - Composer
             - sudo apt install curl php-cli php-mbstring php-curl git unzip
             - cd ~
