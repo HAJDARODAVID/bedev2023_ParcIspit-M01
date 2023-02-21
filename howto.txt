@@ -1,0 +1,74 @@
+Parcijalni ispit - Modul01 (Radno okruženje)
+
+    1. Samostalno kreirati virtualni stroj i pripremiti ga za Linux Ubuntu OS
+        - instalirati VirtualBox, i kreitati novu virtualnu mašinu
+        - https://www.virtualbox.org/wiki/Downloads
+
+    2. Pokrenuti virtualni stroj i instalirati odabrani OS
+        - instalirati OS preko iso datoteke
+        - https://ubuntu.com/download/server
+        - nakon instalacije: Settings-->Network-->Attached to = Bridged Adapter
+
+    3. Instalirati Apache server, MySQL server i PHP interpretor I Composer
+        - sudo apt update
+        - Apache
+            - sudo apt install apache2
+        - MySQL
+            - sudo apt install mysql-server
+            - sudo mysql
+            - ALTER USER 'root'@'localhost' IDENTIFIED BY 'new_pass';
+            - EXIT; 
+            - sudo mysql_secure_installation
+        - PHP
+            - sudo apt install php libapache2-mod-php php-mysql
+
+        - Composer
+            - sudo apt install curl php-cli php-mbstring php-curl git unzip
+            - cd ~
+            - curl -sS https://getcomposer.org/installer -o composer-setup.php
+            - HASH=55ce33d7678c5a611085589f1f3ddf8b3c52d662cd01d4ba75c0ee0459970c2200a51f492d557530c71c15d8dba01eae
+            - php -r "if (hash_file('SHA384', 'composer-setup.php') === '$HASH') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+            - sudo php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+
+    4. Postaviti '/var/www/html/ParcijalniIspit' mapu kao “root” mapu servera
+        - sudo nano /etc/apache2/sites-available/000-default.conf
+        - u liniji gdje nam je 'DocumentRoot' dodamo 'ParcijalniIspit' tako da nam sve upuno izgleda ovako:
+            - DocumentRoot /var/www/html/ParcijalniIspit
+            - CTRL + X --> Y --> ENTER
+
+    5.  U mapi 'ParcijalniIspit' inicijalizirajte GIT
+        - cd /var/www/html/
+        - mkdir ParcijalniIspit
+        - sudo chown -R $USER:$USER /var/www/html/ParcijalniIspit
+        - sudo chmod -R 755 /var/www/html/ParcijalniIspit
+        - nano /var/www/html/ParcijalniIspit/index.html
+            - Upisati: Success!!
+            - CTRL + X --> Y --> ENTER
+        - git init
+            - git config --global user.name "Your Name"
+            - git config --global user.email "youremail@yourdomain.com"
+    
+    6. Kreirajte udaljeni repozitorij na odabranom servisu(GitLab, GitHub, itd) I povežite lokalni i udaljeni repozitorij.
+        - ssh-keygen -t ed25519 -C "your_email@example.com"
+             - naziv kljuceva: id_rsa
+        - ako se nisu kreirali u .ssh folderu --> mv id_rsa* ~/.ssh/
+        - cat ~/.ssh/id_rsa.pub --> kopirati dobiveno
+        kreirati novi SSH ključ u github-u i staviti .pub koji smo u koraku prije kopirali 
+
+        - kreiramo repo na github-u pa zatim.
+            - git remote add origin git@github.com:HAJDARODAVID/nekiNazivRepo.git
+
+    7.  U mapi /var/www/html/ParcijalniIspit instalirajte paket po želji s “Packagist”
+        - composer require symfony/serializer
+    
+    8.  Kreirajte .gitignore datoteku I dodajte mapu /vendor
+        - nano .gitignore
+            - Upisati: vendor/
+            - CTRL + X --> Y --> ENTER
+
+    9. Napravite inicijalni “commit” i promjene pospremite na udaljeni repozitorij
+        - git status --> da vidimo sve što nije dodano
+        - git add . --> da sve dodamo za commit
+        - git commit -m "inicial commit"
+        - git push -u origin master
+
