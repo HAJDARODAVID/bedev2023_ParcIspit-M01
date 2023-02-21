@@ -32,7 +32,7 @@ Parcijalni ispit - Modul01 (Radno okruženje)
 
     4. Postaviti '/var/www/html/ParcijalniIspit' mapu kao “root” mapu servera
         - sudo nano /etc/apache2/sites-available/000-default.conf
-        - u liniji gdje nam je 'DocumentRoot' dodamo 'ParcijalniIspit' tako da nam sve upuno izgleda ovako:
+        - u liniji gdje nam je 'DocumentRoot' dodamo 'ParcijalniIspit' tako da nam sve ukupno izgleda ovako:
             - DocumentRoot /var/www/html/ParcijalniIspit
             - CTRL + X --> Y --> ENTER
 
